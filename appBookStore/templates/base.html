@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    <header>
+        <h1>📚 Book Store</h1>
+        <nav>
+            <a href="/">Inicio</a> 
+            <a href="/books/">Libros</a> 
+            <a href="/publishers/">Editoriales</a> 
+            <a href="/authors/">Autores</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Book Store. Todos los derechos reservados.</p>
+        <p>Un proyecto de Django para clase.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="vista-detalle">
+
+    <div class="detalle-imagen">
+        {% if libro.cover_image %}
+            <img src="{{ libro.cover_image.url }}" alt="{{ libro.title }}">
+        {% endif %}
+    </div>
+
+    <div class="detalle-contenido">
+        
+        <h2>{{ libro.title }}</h2> <p><strong>Editorial:</strong> 
+           <a href="/publishers/{{ libro.publisher.id }}/">{{ libro.publisher.name }}</a>
+        </p>
+        <p><strong>Fecha publicación:</strong> {{ libro.publication_date }}</p>
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="vista-detalle">
+
+    <div class="detalle-contenido">
+
+        <h2>Editorial: {{ editorial.name }}</h2>
+        <p><strong>ID:</strong> {{ editorial.id }}</p>
+        {% if editorial.description %}
+            <p><strong>Descripción:</strong> {{ editorial.description }}</p>
+        {% endif %}
+        
+        <h3>Libros publicados</h3>
+        
+        {% if libros %}
+            <ul>
+            {% for l in libros %}
+                <li><a href="/books/{{ l.id }}/">{{ l.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay libros de esta editorial.</p>
+        {% endif %}
+
+    </div> </div> {% endblock %}

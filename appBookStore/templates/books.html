@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Listado de libros</h2>
+
+{% if libros %}
+    <ul class="lista-items">
+    {% for l in libros %}
+        <li>
+            {% if l.cover_image %}
+                <img src="{{ l.cover_image.url }}" alt="{{ l.title }}" class="img-libro">
+            {% endif %}
+            <div class="lista-items-contenido">
+                <a href="/books/{{ l.id }}/">{{ l.title }}</a>
+                <div class="subtexto">– {{ l.publisher.name }}</div>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay libros registrados.</p>
+{% endif %}
+{% endblock %}

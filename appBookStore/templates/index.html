@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block body_class %}portada{% endblock %}
+
+{% block content %}
+<h2>Bienvenido a Book Store Deusto</h2>
+<p>Tu tienda de libros online...</p>
+<h3>El libro mas reciente de cada editorial: </h3>
+
+{% if editoriales %}
+<ul class="cuadricula-portada">
+    {% for editorial, libro in editoriales.items %}
+        <li> <strong>{{ editorial.name }}</strong>:
+            {% if libro %}
+            <br>
+            {% if libro.cover_image %}
+                
+                <img src="{{ libro.cover_image.url }}" alt="Portada de {{ libro.title }}">
+                <br>
+
+            {% endif %}
+            <a href="/books/{{ libro.id }}/">{{ libro.title }}</a>
+            <small>({{ libro.publication_date }})</small>
+            {% else %}
+                No tiene libros registrados.
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay editoriales registradas.</p>
+{% endif %}
+{% endblock %}

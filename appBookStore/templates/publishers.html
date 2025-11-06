@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editoriales</h2>
+
+{% if editoriales %}
+    <ul class="lista-items">
+    {% for e in editoriales %}
+        <li>
+            <div class="lista-items-contenido">
+                <a href="/publishers/{{ e.id }}/">{{ e.name }}</a>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay editoriales registradas.</p>
+{% endif %}
+{% endblock %}
