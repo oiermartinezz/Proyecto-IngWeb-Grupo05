@@ -2,24 +2,27 @@
 
 {% block content %}
 <div class="vista-detalle">
-
     <div class="detalle-contenido">
-<h2>Autor: {{ autor.name }}</h2>
-<p><strong>ID:</strong> {{ autor.id }}</p>
-{% if autor.biography %}
-    <h3>Biografía</h3>
-    <p>{{ autor.biography }}</p>
-{% endif %}
-<h3>Libros</h3>
+        <h2>Autor: {{ autor.name }}</h2>
+        <p><strong>ID:</strong> {{ autor.id }}</p>
 
-{% if libros %}
-    <ul>
-    {% for l in libros %}
-        <li><a href="/books/{{ l.id }}/">{{ l.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Este autor no tiene libros registrados</p>
-{% endif %}
-</div> </div>{% endblock %}
+        {% if autor.biography %}
+            <h3>Biografía</h3>
+            <p>{{ autor.biography }}</p>
+        {% endif %}
+
+        <h3>Libros</h3>
+        {% if libros %}
+            <ul>
+                {% for l in libros %}
+                    <li><a href="{% url 'book_detail' l.id %}">{{ l.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Este autor no tiene libros registrados.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
 
