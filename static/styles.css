@@ -1,42 +1,43 @@
-
-/*CREAMOS UNAS VARIABLES DE COLOR PARA ACCEDER A ESTOS COLORES PRINCIPALES MAS FACILMENTE*/
+/* ===== VARIABLES ===== */
 :root {
     --color-principal: #4a3c2b; /* Marrón oscuro */
-    --color-fondo: #fdfaf6;     /* Beige muy claro  */
-    --color-acento: #c06b3e;    /* Naranja/óxido  */
-    --color-texto: #333333;      /* Gris oscuro */
+    --color-fondo: #fdfaf6;     /* Beige muy claro */
+    --color-acento: #c06b3e;    /* Naranja/óxido */
+    --color-texto: #333333;     /* Gris oscuro */
     --color-blanco: #ffffff;
+    --color-sombra: rgba(0, 0, 0, 0.08);
+
     --fuente-titulo: 'Georgia', serif;
     --fuente-cuerpo: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* --- ESTILOS GLOBALES --- */
+/* ===== ESTILOS GLOBALES ===== */
 body {
     font-family: var(--fuente-cuerpo);
     background-color: var(--color-fondo);
     color: var(--color-texto);
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
-/* HEADER*/
-
+/* ===== HEADER ===== */
 header {
     background-color: var(--color-principal);
     color: var(--color-blanco);
     padding: 1.5rem 0;
-    /* Esto centra el h1 arriba y el nav abajo */
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 header h1 {
     font-family: var(--fuente-titulo);
     font-size: 2.8rem;
     margin: 0;
+    letter-spacing: 1px;
 }
 
 header nav {
@@ -44,212 +45,183 @@ header nav {
     width: 80%;
     max-width: 1000px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 header nav a {
     color: var(--color-blanco);
     text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
+    font-size: 1.05rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 header nav a:hover {
-    background-color: #6a5a4b; /* Un marrón un poco más claro */
+    background-color: var(--color-acento);
+    transform: translateY(-2px);
 }
 
-/* CONTENIDO PRINCIPAL */
+/* ===== CONTENIDO PRINCIPAL ===== */
 main {
     width: 90%;
     max-width: 1200px;
-    margin: 2rem auto;
+    margin: 3rem auto;
     padding: 1rem;
+    text-align: center;
 }
-
 
 main h2 {
     font-family: var(--fuente-titulo);
     color: var(--color-principal);
-    font-size: 2.2rem;
+    font-size: 2.4rem;
     border-bottom: 3px solid var(--color-acento);
-    padding-bottom: 10px;
-    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.8rem;
 }
 
-/* index.html */
+main h3 {
+    font-size: 1.6rem;
+    color: var(--color-acento);
+    margin-bottom: 2rem;
+}
+
+/* ===== PORTADA ===== */
 body.portada {
-    background-image: linear-gradient(135deg, #f7d9aa 0%, #e8b78a 100%);
+    background: linear-gradient(130deg, #f8e3c2 0%, #f2d1aa 100%);
     background-attachment: fixed;
 }
 
+/* Cuadrícula de editoriales */
 .cuadricula-portada {
     display: grid;
-    /* Crea columnas automáticas que se adaptan */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
     list-style: none;
     padding: 0;
 }
 
 .cuadricula-portada li {
     background-color: var(--color-blanco);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--color-sombra);
+    padding: 1.8rem 1.2rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cuadricula-portada li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, rgba(192,107,62,0.05), rgba(74,60,43,0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cuadricula-portada li:hover::before {
+    opacity: 1;
 }
 
 .cuadricula-portada li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
+/* Imágenes */
 .cuadricula-portada img {
     width: 160px;
     height: 230px;
-    object-fit: cover; 
-    border-radius: 4px;
+    object-fit: cover;
+    border-radius: 6px;
     margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
 }
 
+.cuadricula-portada li:hover img {
+    transform: scale(1.05);
+}
+
+/* Texto */
 .cuadricula-portada strong {
     display: block;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: var(--color-principal);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .cuadricula-portada a {
     font-size: 1.1rem;
     color: var(--color-acento);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-/* LISTAS DEL HEADER */
-.lista-items {
-    list-style: none;
-    padding: 0;
-}
-
-.lista-items li {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background-color: var(--color-blanco);
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: box-shadow 0.3s ease;
-}
-
-.lista-items li:hover {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ESTILOS DE IMAGENES PARA CADA LISTA */
-
-/* Para lista de Libros */
-.lista-items .img-libro {
-    width: 80px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 4px;
-    flex-shrink: 0;
-}
-
-/* Para lista de Autores  */
-.lista-items .img-autor {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%; /* Foto redonda */
-    flex-shrink: 0;
-}
-
-/* Para lista de Editoriales (logo) */
-.lista-items .img-editorial {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-
-.lista-items-contenido {
-    flex-grow: 1;
-}
-
-.lista-items-contenido a {
-    font-size: 1.4rem;
-    font-weight: bold;
+.cuadricula-portada a:hover {
     color: var(--color-principal);
-    text-decoration: none;
-}
-.lista-items-contenido a:hover {
-    color: var(--color-acento);
+    text-decoration: underline;
 }
 
-.lista-items-contenido .subtexto {
-    font-size: 1rem;
-    color: #777;
-    margin-top: 5px;
+.cuadricula-portada small {
+    display: block;
+    margin-top: 0.4rem;
+    color: #666;
+    font-size: 0.9rem;
 }
 
-
-/* DETALLES DE CADA COSA */
-
-.vista-detalle {
-    background-color: var(--color-blanco);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-}
-
-.detalle-imagen {
-    flex: 0 1 300px; 
-}
-
-.detalle-imagen img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-
-.detalle-contenido {
-    flex: 1; 
-}
-
-.detalle-contenido h3 {
-    font-family: var(--fuente-titulo);
-    color: var(--color-acento);
-    margin-top: 1.5rem;
-}
-.detalle-contenido ul {
-    padding-left: 20px;
-}
-
-
-/*FOOTER*/
-
+/* ===== FOOTER ===== */
 footer {
     background-color: var(--color-principal);
     color: var(--color-fondo);
     text-align: center;
-    padding: 2rem 0;
-    margin-top: 3rem;
-    font-size: 0.9em;
+    padding: 2.5rem 0;
+    margin-top: 4rem;
+    font-size: 0.95em;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 footer p {
-    margin: 0.5rem 0;
+    margin: 0.6rem 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    .cuadricula-portada img {
+        width: 130px;
+        height: 190px;
+    }
+
+    main h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .cuadricula-portada {
+        grid-template-columns: 1fr;
+    }
+
+    .cuadricula-portada li {
+        padding: 1.2rem;
+    }
 }
