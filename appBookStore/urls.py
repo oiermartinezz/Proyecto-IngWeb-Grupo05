@@ -23,3 +23,4 @@ urlpatterns = [
     # Detalle de un Autor
     path('authors/<int:author_id>/', views.author_detail, name='author-detail'),
 ]
+
