@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de Contactos - Librería</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <style>
+        .contacto-item {
+            transition: all 0.3s ease;
+            border-left: 4px solid #007bff;
+        }
+        .contacto-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        .btn-delete {
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .btn-delete:hover {
+            opacity: 1;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s ease;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="container mt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="text-center text-primary">
+                    <i class="bi bi-journal-text"></i>
+                    Agenda de Contactos
+                </h1>
+                <p class="text-center text-muted">Gestiona tus contactos de manera fácil y rápida</p>
+            </div>
+        </div>
+
+        <!-- Formulario para agregar contacto -->
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-person-plus"></i>
+                            Nuevo Contacto
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form @submit.prevent="agregarContacto" class="row g-3">
+                            <div class="col-md-4">
+                                <label for="nombre" class="form-label">Nombre *</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="nombre" 
+                                    v-model="nuevoContacto.nombre" 
+                                    required
+                                    placeholder="Ej: Juan Pérez"
+                                >
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email" class="form-label">Email *</label>
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="email" 
+                                    v-model="nuevoContacto.email" 
+                                    required
+                                    placeholder="Ej: juan@email.com"
+                                >
+                            </div>
+                            <div class="col-md-4">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input 
+                                    type="tel" 
+                                    class="form-control" 
+                                    id="telefono" 
+                                    v-model="nuevoContacto.telefono" 
+                                    placeholder="Ej: +34 600 123 456"
+                                >
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-lg"></i>
+                                    Agregar Contacto
+                                </button>
+                                <button type="button" class="btn btn-secondary ms-2" @click="limpiarFormulario">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    Limpiar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de contactos -->
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="bi bi-list-ul"></i>
+                            Mis Contactos 
+                            <span class="badge bg-primary ms-2">{{ contactos.length }}</span>
+                        </h5>
+                        <div class="d-flex align-items-center">
+                            <input 
+                                type="text" 
+                                class="form-control form-control-sm me-2" 
+                                style="width: 200px;" 
+                                placeholder="Buscar contacto..."
+                                v-model="filtroBusqueda"
+                            >
+                            <button class="btn btn-outline-secondary btn-sm" @click="ordenAscendente = !ordenAscendente">
+                                <i class="bi bi-sort-alpha-down"></i>
+                                {{ ordenAscendente ? 'A-Z' : 'Z-A' }}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Estado vacío -->
+                        <div v-if="contactosFiltrados.length === 0" class="empty-state">
+                            <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+                            <h4 class="mt-3">No hay contactos</h4>
+                            <p class="text-muted">
+                                {{ filtroBusqueda ? 'No se encontraron contactos que coincidan con tu búsqueda.' : 'Comienza agregando tu primer contacto usando el formulario superior.' }}
+                            </p>
+                        </div>
+
+                        <!-- Lista de contactos -->
+                        <transition-group name="fade" tag="div">
+                            <div 
+                                v-for="contacto in contactosFiltrados" 
+                                :key="contacto.id" 
+                                class="contacto-item card mb-3"
+                            >
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <h6 class="card-title mb-1 text-primary">
+                                                <i class="bi bi-person-circle"></i>
+                                                {{ contacto.nombre }}
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="card-text mb-1">
+                                                <i class="bi bi-envelope"></i>
+                                                <a :href="`mailto:${contacto.email}`" class="text-decoration-none">
+                                                    {{ contacto.email }}
+                                                </a>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p class="card-text mb-1" v-if="contacto.telefono">
+                                                <i class="bi bi-telephone"></i>
+                                                <a :href="`tel:${contacto.telefono}`" class="text-decoration-none">
+                                                    {{ contacto.telefono }}
+                                                </a>
+                                            </p>
+                                            <p class="card-text mb-1 text-muted" v-else>
+                                                <i class="bi bi-telephone"></i>
+                                                Sin teléfono
+                                            </p>
+                                        </div>
+                                        <div class="col-md-1 text-end">
+                                            <button 
+                                                class="btn btn-danger btn-sm btn-delete" 
+                                                @click="eliminarContacto(contacto.id)"
+                                                title="Eliminar contacto"
+                                            >
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition-group>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <p class="text-muted">
+                    &copy; 2024 Librería - Agenda de Contactos SPA
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar que Vue se cargó
+        if (typeof Vue === 'undefined') {
+            console.error('Vue no se cargó correctamente');
+            document.getElementById('app').innerHTML = '<div class="alert alert-danger">Error: Vue.js no se pudo cargar. Revisa la conexión a internet.</div>';
+        } else {
+            console.log('Vue cargado correctamente, versión:', Vue.version);
+        }
+
+        const { createApp, ref, computed, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                console.log('Iniciando aplicación Vue...');
+                
+                // Estado de la aplicación
+                const contactos = ref([]);
+                const nuevoContacto = ref({
+                    nombre: '',
+                    email: '',
+                    telefono: ''
+                });
+                const filtroBusqueda = ref('');
+                const ordenAscendente = ref(true);
+
+                // Contactos filtrados y ordenados
+                const contactosFiltrados = computed(() => {
+                    let filtered = contactos.value.filter(contacto => 
+                        contacto.nombre.toLowerCase().includes(filtroBusqueda.value.toLowerCase()) ||
+                        contacto.email.toLowerCase().includes(filtroBusqueda.value.toLowerCase()) ||
+                        (contacto.telefono && contacto.telefono.includes(filtroBusqueda.value))
+                    );
+
+                    // Ordenar por nombre
+                    filtered.sort((a, b) => {
+                        const nameA = a.nombre.toLowerCase();
+                        const nameB = b.nombre.toLowerCase();
+                        if (ordenAscendente.value) {
+                            return nameA.localeCompare(nameB);
+                        } else {
+                            return nameB.localeCompare(nameA);
+                        }
+                    });
+
+                    return filtered;
+                });
+
+                // Métodos
+                const agregarContacto = () => {
+                    if (!nuevoContacto.value.nombre || !nuevoContacto.value.email) {
+                        alert('Por favor, completa al menos el nombre y el email.');
+                        return;
+                    }
+
+                    const contacto = {
+                        id: Date.now(), // ID temporal
+                        nombre: nuevoContacto.value.nombre,
+                        email: nuevoContacto.value.email,
+                        telefono: nuevoContacto.value.telefono
+                    };
+
+                    contactos.value.push(contacto);
+                    guardarEnLocalStorage();
+                    limpiarFormulario();
+                    
+                    console.log('Contacto agregado:', contacto);
+                };
+
+                const eliminarContacto = (id) => {
+                    if (confirm('¿Estás seguro de que quieres eliminar este contacto?')) {
+                        const index = contactos.value.findIndex(contacto => contacto.id === id);
+                        if (index !== -1) {
+                            const contactoEliminado = contactos.value[index];
+                            contactos.value.splice(index, 1);
+                            guardarEnLocalStorage();
+                            console.log('Contacto eliminado:', contactoEliminado);
+                        }
+                    }
+                };
+
+                const limpiarFormulario = () => {
+                    nuevoContacto.value = {
+                        nombre: '',
+                        email: '',
+                        telefono: ''
+                    };
+                };
+
+                const guardarEnLocalStorage = () => {
+                    localStorage.setItem('agendaContactos', JSON.stringify(contactos.value));
+                };
+
+                const cargarDesdeLocalStorage = () => {
+                    const datosGuardados = localStorage.getItem('agendaContactos');
+                    if (datosGuardados) {
+                        contactos.value = JSON.parse(datosGuardados);
+                    } else {
+                        // Datos de ejemplo
+                        contactos.value = [
+                            { id: 1, nombre: 'Ana García', email: 'ana@email.com', telefono: '+34 600 111 222' },
+                            { id: 2, nombre: 'Carlos López', email: 'carlos@email.com', telefono: '+34 600 333 444' },
+                            { id: 3, nombre: 'María Rodríguez', email: 'maria@email.com', telefono: '' }
+                        ];
+                        guardarEnLocalStorage();
+                    }
+                    console.log('Contactos cargados:', contactos.value.length);
+                };
+
+                // Ciclo de vida
+                onMounted(() => {
+                    console.log('Aplicación Vue montada');
+                    cargarDesdeLocalStorage();
+                });
+
+                return {
+                    contactos,
+                    nuevoContacto,
+                    filtroBusqueda,
+                    ordenAscendente,
+                    contactosFiltrados,
+                    agregarContacto,
+                    eliminarContacto,
+                    limpiarFormulario
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

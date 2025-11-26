@@ -116,3 +116,6 @@ def newsletter_subscription(request):
     
     context = {'form': form}
     return render(request, 'newsletter_form.html', context)
+    
+def agenda_contactos(request):
+    return render(request, 'agenda_contactos.html')

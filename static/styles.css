@@ -461,3 +461,179 @@ footer p {
         height: 280px;
     }
 }
+
+/* ===== ESTILOS AGENDA DE CONTACTOS ===== */
+
+/* Elementos de contacto */
+.contacto-item {
+    transition: all 0.3s ease;
+    border-left: 4px solid #007bff;
+}
+
+.contacto-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+/* Botones */
+.btn-delete {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.btn-delete:hover {
+    opacity: 1;
+}
+
+.agenda-btn-add,
+.agenda-btn-clear {
+    transition: all 0.3s ease;
+}
+
+.agenda-btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Tarjetas */
+.agenda-card {
+    border: none;
+    border-radius: 10px;
+}
+
+.agenda-card-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+.agenda-list-header {
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Estados vacíos */
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #6c757d;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+.empty-state-title {
+    color: #6c757d;
+    font-weight: 300;
+}
+
+.empty-state-text {
+    font-size: 0.9rem;
+}
+
+/* Títulos */
+.agenda-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.agenda-subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+/* Badge contador */
+.agenda-badge {
+    font-size: 0.8rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Buscador */
+.agenda-search:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Botón de ordenar */
+.agenda-sort-btn {
+    transition: all 0.3s ease;
+}
+
+.agenda-sort-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Información de contacto */
+.contacto-name {
+    font-weight: 600;
+}
+
+.contacto-email a,
+.contacto-phone a {
+    color: #495057;
+    transition: color 0.3s ease;
+}
+
+.contacto-email a:hover,
+.contacto-phone a:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contacto-phone-empty {
+    font-style: italic;
+}
+
+/* Footer */
+.agenda-footer {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Transiciones Vue */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .agenda-title {
+        font-size: 1.5rem;
+    }
+    
+    .agenda-subtitle {
+        font-size: 1rem;
+    }
+    
+    .contacto-item {
+        margin-bottom: 1rem;
+    }
+    
+    .agenda-search {
+        width: 150px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .empty-state {
+        padding: 2rem 1rem;
+    }
+    
+    .empty-state-icon {
+        font-size: 2.5rem;
+    }
+    
+    .agenda-btn-add,
+    .agenda-btn-clear {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .agenda-btn-clear {
+        margin-left: 0 !important;
+    }
+}

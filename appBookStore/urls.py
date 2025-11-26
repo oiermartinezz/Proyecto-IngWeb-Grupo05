@@ -25,6 +25,8 @@ urlpatterns = [
     
     # Suscripción a newsletter
     path('newsletter/', views.newsletter_subscription, name='newsletter'),
+
+    path('agenda-contactos/', views.agenda_contactos, name='agenda_contactos'),
 ]
 
 
