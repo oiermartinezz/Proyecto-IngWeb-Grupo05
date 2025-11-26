@@ -1,10 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
 import re
-from .models import Book
+from typing import Any, Optional
+from .models import Book, Publisher
+
 
 class BookSearchForm(forms.Form):
-    """Formulario de búsqueda y filtrado de libros"""
+    """Formulario de búsqueda y filtrado de libros con validaciones de seguridad."""
+    
     search = forms.CharField(
         max_length=100,
         required=False,
@@ -15,7 +18,7 @@ class BookSearchForm(forms.Form):
         })
     )
     publisher = forms.ModelChoiceField(
-        queryset=None,
+        queryset=Publisher.objects.none(),
         required=False,
         empty_label='Todas las editoriales',
         widget=forms.Select(attrs={'class': 'form-control'})
@@ -30,23 +33,28 @@ class BookSearchForm(forms.Form):
         })
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        from .models import Publisher
-        self.fields['publisher'].queryset = Publisher.objects.all()
+        # type: ignore permite ignorar el warning de Pylance sobre queryset
+        self.fields['publisher'].queryset = Publisher.objects.all()  # type: ignore[attr-defined]
     
-    def clean_search(self):
-        """Validar que el search no contiene caracteres maliciosos"""
-        search = self.cleaned_data.get('search')
+    def clean_search(self) -> str:
+        """Validar que el search no contiene caracteres maliciosos."""
+        search = self.cleaned_data.get('search', '')
         if search:
             # Prevenir inyecciones SQL simples y XSS
-            if any(char in search for char in ['<', '>', '"', "'", ';', '--']):
-                raise ValidationError("La búsqueda contiene caracteres no permitidos.")
+            dangerous_chars = ['<', '>', '"', "'", ';', '--']
+            if any(char in search for char in dangerous_chars):
+                raise ValidationError(
+                    "La búsqueda contiene caracteres no permitidos.",
+                    code='invalid_chars'
+                )
         return search
 
 
 class NewsletterSubscriptionForm(forms.Form):
-    """Formulario de suscripción al newsletter"""
+    """Formulario de suscripción al newsletter con validaciones robustas."""
+    
     email = forms.EmailField(
         max_length=254,
         widget=forms.EmailInput(attrs={
@@ -69,21 +77,27 @@ class NewsletterSubscriptionForm(forms.Form):
         label='Deseo recibir novedades sobre libros'
     )
     
-    def clean_name(self):
-        """Validar que el nombre no contiene caracteres maliciosos"""
-        name = self.cleaned_data.get('name')
+    def clean_name(self) -> str:
+        """Validar que el nombre no contiene caracteres maliciosos."""
+        name = self.cleaned_data.get('name', '')
         if name:
             # Solo permitir letras, espacios y puntos
-            if not re.match(r"^[a-záéíóúñA-ZÁÉÍÓÚÑ\s.'-]+$", name):
-                raise ValidationError("El nombre contiene caracteres no permitidos.")
+            pattern = r"^[a-záéíóúñA-ZÁÉÍÓÚÑ\s.'-]+$"
+            if not re.match(pattern, name):
+                raise ValidationError(
+                    "El nombre contiene caracteres no permitidos.",
+                    code='invalid_name'
+                )
         return name
     
-    def clean_email(self):
-        """Validar email"""
-        email = self.cleaned_data.get('email')
-        if email:
-            # Validación básica adicional
-            if len(email) > 254:
-                raise ValidationError("El email es demasiado largo.")
+    def clean_email(self) -> str:
+        """Validar email con restricciones adicionales."""
+        email = self.cleaned_data.get('email', '')
+        if email and len(email) > 254:
+            raise ValidationError(
+                "El email es demasiado largo.",
+                code='email_too_long'
+            )
         return email
+
 

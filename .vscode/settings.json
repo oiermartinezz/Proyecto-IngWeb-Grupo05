@@ -1,0 +1,13 @@
+{
+    "python.defaultInterpreterPath": "C:\\Program Files\\Python312\\python.exe",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.formatOnSave": true
+    },
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}"
+    ],
+    "pylance.analysis.typeCheckingMode": "basic"
+}

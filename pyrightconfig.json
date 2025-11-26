@@ -1,0 +1,12 @@
+{
+  "include": ["."],
+  "exclude": ["venv", ".venv", "__pycache__", "*.pyc"],
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "basic",
+  "pythonPath": "C:\\Program Files\\Python312\\python.exe",
+  "extraPaths": [
+    "C:\\Program Files\\Python312\\Lib\\site-packages"
+  ],
+  "reportMissingImports": false,
+  "reportMissingModuleSource": false
+}
