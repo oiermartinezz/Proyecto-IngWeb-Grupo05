@@ -3,6 +3,15 @@
 {% block content %}
 <h2>Listado de libros</h2>
 
+<!-- Formulario de búsqueda y filtrado -->
+<div class="search-form">
+    <form method="get" class="busqueda-libros">
+        {{ form.as_p }}
+        <button type="submit" class="btn-buscar">Buscar</button>
+        <a href="{% url 'book-list' %}" class="btn-limpiar">Limpiar filtros</a>
+    </form>
+</div>
+
 {% if libros %}
     <ul class="lista-items">
     {% for l in libros %}
@@ -11,13 +20,14 @@
                 <img src="{{ l.cover_image.url }}" alt="{{ l.title }}" class="img-libro">
             {% endif %}
             <div class="lista-items-contenido">
-                <a href="/books/{{ l.id }}/">{{ l.title }}</a>
+                <a href="{% url 'book-detail' l.id %}">{{ l.title }}</a>
                 <div class="subtexto">– {{ l.publisher.name }}</div>
             </div>
         </li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No hay libros registrados.</p>
+    <p>No hay libros que coincidan con tu búsqueda.</p>
 {% endif %}
 {% endblock %}
+

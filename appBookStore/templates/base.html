@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="es">
+{% load i18n %}
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="utf-8">
     <title>Book Store</title>
@@ -11,10 +12,14 @@
     <header>
         <h1>📚 Book Store</h1>
         <nav>
-            <a href="/">Inicio</a> 
-            <a href="/books/">Libros</a> 
-            <a href="/publishers/">Editoriales</a> 
-            <a href="/authors/">Autores</a>
+            <a href="{% url 'index' %}">{% trans "Inicio" %}</a> 
+            <a href="{% url 'book-list' %}">{% trans "Libros" %}</a> 
+            <a href="{% url 'publisher-list' %}">{% trans "Editoriales" %}</a> 
+            <a href="{% url 'author-list' %}">{% trans "Autores" %}</a>
+            <a href="{% url 'newsletter' %}">{% trans "Newsletter" %}</a>
+            <span class="idioma-selector">
+                <a href="/es/">ES</a> | <a href="/en/">EN</a>
+            </span>
         </nav>
     </header>
 
@@ -26,8 +31,8 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Book Store. Todos los derechos reservados.</p>
-        <p>Un proyecto de Django para clase.</p>
+        <p>&copy; 2025 Book Store. {% trans "Todos los derechos reservados." %}</p>
+        <p>{% trans "Un proyecto de Django para clase." %}</p>
     </footer>
 
 </body>

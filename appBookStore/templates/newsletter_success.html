@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="success-message">
+    <h2>¡Gracias por tu suscripción!</h2>
+    <p>¡Hola <strong>{{ name }}</strong>!</p>
+    <p>Te hemos suscrito exitosamente a nuestro newsletter en <strong>{{ email }}</strong>.</p>
+    <p>Recibirás noticias sobre nuevos libros y ofertas especiales en tu correo.</p>
+    
+    <a href="{% url 'index' %}" class="btn-volver">Volver al inicio</a>
+</div>
+{% endblock %}

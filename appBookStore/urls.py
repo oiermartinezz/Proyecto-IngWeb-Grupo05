@@ -22,5 +22,9 @@ urlpatterns = [
 
     # Detalle de un Autor
     path('authors/<int:author_id>/', views.author_detail, name='author-detail'),
+    
+    # Suscripción a newsletter
+    path('newsletter/', views.newsletter_subscription, name='newsletter'),
 ]
+
 

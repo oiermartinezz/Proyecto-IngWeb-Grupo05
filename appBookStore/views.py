@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.shortcuts import render
+from django.db.models import Q
 from .models import Publisher, Author, Book
+from .forms import BookSearchForm, NewsletterSubscriptionForm
 
 def index(request):
     #la portada con un libro reciente de cada editorial
@@ -20,10 +22,25 @@ def index(request):
 # Vista para la lista de Libros (books.html)
 def book_list(request):
     
-    #Muestra el listado de todos los libros.
+    #Muestra el listado de todos los libros con búsqueda y filtrado.
     
     libros = Book.objects.all().order_by('title')
-    context = {'libros': libros}
+    form = BookSearchForm(request.GET or None)
+    
+    if form.is_valid():
+        search_term = form.cleaned_data.get('search')
+        if search_term:
+            libros = libros.filter(Q(title__icontains=search_term) | Q(isbn__icontains=search_term))
+        
+        publisher = form.cleaned_data.get('publisher')
+        if publisher:
+            libros = libros.filter(publisher=publisher)
+        
+        min_stock = form.cleaned_data.get('min_stock')
+        if min_stock is not None:
+            libros = libros.filter(stock__gte=min_stock)
+    
+    context = {'libros': libros, 'form': form}
     return render(request, 'books.html', context)
 
 
@@ -78,3 +95,24 @@ def author_detail(request, author_id):
     libros = autor.book_set.all().order_by('title')
     context = {'autor': autor, 'libros': libros}
     return render(request, 'author.html', context)
+
+
+# Vista de suscripción a newsletter
+def newsletter_subscription(request):
+    
+    #Procesa suscripciones al newsletter.
+    
+    if request.method == 'POST':
+        form = NewsletterSubscriptionForm(request.POST)
+        if form.is_valid():
+            # Aquí se guardaría en base de datos o se enviaría un email
+            # Por ahora simplemente mostramos un mensaje de éxito
+            return render(request, 'newsletter_success.html', {
+                'email': form.cleaned_data['email'],
+                'name': form.cleaned_data['name']
+            })
+    else:
+        form = NewsletterSubscriptionForm()
+    
+    context = {'form': form}
+    return render(request, 'newsletter_form.html', context)

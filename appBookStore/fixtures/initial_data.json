@@ -1,0 +1,158 @@
+[
+  {
+    "model": "appBookStore.publisher",
+    "pk": 1,
+    "fields": {
+      "name": "Penguin Books",
+      "description": "Editorial británica especializada en literatura clásica y contemporánea."
+    }
+  },
+  {
+    "model": "appBookStore.publisher",
+    "pk": 2,
+    "fields": {
+      "name": "Melusina Press",
+      "description": "Editorial especializada en ciencia ficción y fantasía."
+    }
+  },
+  {
+    "model": "appBookStore.publisher",
+    "pk": 3,
+    "fields": {
+      "name": "Anagrama",
+      "description": "Editorial española de narrativa contemporánea."
+    }
+  },
+  {
+    "model": "appBookStore.author",
+    "pk": 1,
+    "fields": {
+      "name": "George Orwell",
+      "biography": "Escritor y periodista británico famoso por sus novelas distópicas."
+    }
+  },
+  {
+    "model": "appBookStore.author",
+    "pk": 2,
+    "fields": {
+      "name": "J.K. Rowling",
+      "biography": "Autora británica conocida por la saga de Harry Potter."
+    }
+  },
+  {
+    "model": "appBookStore.author",
+    "pk": 3,
+    "fields": {
+      "name": "Isaac Asimov",
+      "biography": "Escritor y profesor estadounidense de ciencia ficción."
+    }
+  },
+  {
+    "model": "appBookStore.author",
+    "pk": 4,
+    "fields": {
+      "name": "Almudena Grandes",
+      "biography": "Escritora española de narrativa contemporánea."
+    }
+  },
+  {
+    "model": "appBookStore.book",
+    "pk": 1,
+    "fields": {
+      "title": "1984",
+      "publisher": 1,
+      "publication_date": "1949-06-08",
+      "stock": 15,
+      "isbn": "978-0-452-26241-3",
+      "summary": "Novela distópica que presenta un régimen totalitario donde la privacidad y la libertad son eliminadas."
+    }
+  },
+  {
+    "model": "appBookStore.book",
+    "pk": 2,
+    "fields": {
+      "title": "Harry Potter y la Piedra Filosofal",
+      "publisher": 2,
+      "publication_date": "1997-06-26",
+      "stock": 20,
+      "isbn": "978-0-439-13959-1",
+      "summary": "Primera novela de la saga Harry Potter. Un joven mago descubre su verdadera identidad."
+    }
+  },
+  {
+    "model": "appBookStore.book",
+    "pk": 3,
+    "fields": {
+      "title": "Fundación",
+      "publisher": 2,
+      "publication_date": "1951-06-01",
+      "stock": 10,
+      "isbn": "978-0-553-29438-0",
+      "summary": "Novela de ciencia ficción sobre el colapso y resurgimiento de una civilización galáctica."
+    }
+  },
+  {
+    "model": "appBookStore.book",
+    "pk": 4,
+    "fields": {
+      "title": "Rebelión en la Granja",
+      "publisher": 1,
+      "publication_date": "1945-08-17",
+      "stock": 12,
+      "isbn": "978-0-451-52634-2",
+      "summary": "Sátira alegórica sobre la Revolución Rusa y el estalinismo."
+    }
+  },
+  {
+    "model": "appBookStore.book",
+    "pk": 5,
+    "fields": {
+      "title": "El Lector",
+      "publisher": 3,
+      "publication_date": "1995-09-01",
+      "stock": 8,
+      "isbn": "978-8433918919",
+      "summary": "Novela que explora temas de amor, culpa y responsabilidad en la Alemania de posguerra."
+    }
+  },
+  {
+    "model": "appBookStore.book_authors",
+    "pk": 1,
+    "fields": {
+      "book": 1,
+      "author": 1
+    }
+  },
+  {
+    "model": "appBookStore.book_authors",
+    "pk": 2,
+    "fields": {
+      "book": 2,
+      "author": 2
+    }
+  },
+  {
+    "model": "appBookStore.book_authors",
+    "pk": 3,
+    "fields": {
+      "book": 3,
+      "author": 3
+    }
+  },
+  {
+    "model": "appBookStore.book_authors",
+    "pk": 4,
+    "fields": {
+      "book": 4,
+      "author": 1
+    }
+  },
+  {
+    "model": "appBookStore.book_authors",
+    "pk": 5,
+    "fields": {
+      "book": 5,
+      "author": 4
+    }
+  }
+]
