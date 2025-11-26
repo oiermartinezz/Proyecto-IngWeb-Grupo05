@@ -15,7 +15,7 @@
         {% if libros %}
             <ul>
                 {% for l in libros %}
-                    <li><a href="{% url 'book_detail' l.id %}">{{ l.title }}</a></li>
+                    <li><a href="{% url 'book-detail' l.id %}">{{ l.title }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

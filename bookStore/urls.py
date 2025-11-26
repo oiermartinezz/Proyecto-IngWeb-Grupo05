@@ -30,3 +30,9 @@ urlpatterns = [
 #imagenes
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Servir ficheros estáticos en desarrollo
+    try:
+        urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    except Exception:
+        # En caso de que STATICFILES_DIRS no esté configurado como lista accesible
+        pass

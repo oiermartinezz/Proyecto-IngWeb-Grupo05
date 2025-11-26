@@ -15,6 +15,15 @@
            <a href="/publishers/{{ libro.publisher.id }}/">{{ libro.publisher.name }}</a>
         </p>
         <p><strong>Fecha publicación:</strong> {{ libro.publication_date }}</p>
+        <p><strong>Autores:</strong>
+            {% if autores %}
+                {% for author in autores %}
+                    <a href="{% url 'author-detail' author.id %}">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% else %}
+                <span>Sin autor especificado</span>
+            {% endif %}
+        </p>
         </div>
 </div>
 {% endblock %}
