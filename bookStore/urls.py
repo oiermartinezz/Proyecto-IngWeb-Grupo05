@@ -26,12 +26,7 @@ urlpatterns = [
  path('i18n/', include('django.conf.urls.i18n')),
 ]
 
-urlpatterns += i18n_patterns(
-    path('', include('appBookStore.urls')),
-    path('admin/', admin.site.urls),
-)
-
-#imagenes
+# Servir media y estáticos FUERA de i18n_patterns para que no tengan prefijo de idioma
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # Servir ficheros estáticos en desarrollo
@@ -40,3 +35,8 @@ if settings.DEBUG:
     except Exception:
         # En caso de que STATICFILES_DIRS no esté configurado como lista accesible
         pass
+
+urlpatterns += i18n_patterns(
+    path('', include('appBookStore.urls')),
+    path('admin/', admin.site.urls),
+)

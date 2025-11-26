@@ -1,24 +1,29 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2>Listado de libros</h2>
+<h2>{% trans "Listado de libros" %}</h2>
 
 <!-- Formulario de búsqueda y filtrado -->
 <div class="search-form">
     <form method="get" class="busqueda-libros">
         {{ form.as_p }}
-        <button type="submit" class="btn-buscar">Buscar</button>
-        <a href="{% url 'book-list' %}" class="btn-limpiar">Limpiar filtros</a>
+        <button type="submit" class="btn-buscar">{% trans "Buscar" %}</button>
+        <a href="{% url 'book-list' %}" class="btn-limpiar">{% trans "Limpiar filtros" %}</a>
     </form>
 </div>
 
 {% if libros %}
     <ul class="lista-items">
     {% for l in libros %}
-        <li>
-            {% if l.cover_image %}
-                <img src="{{ l.cover_image.url }}" alt="{{ l.title }}" class="img-libro">
-            {% endif %}
+        <li class="lista-items-book">
+            <div class="book-cover-wrapper">
+                {% if l.cover_image %}
+                    <img src="{{ l.cover_image.url }}" alt="{{ l.title }}" class="img-libro">
+                {% else %}
+                    <div class="img-libro placeholder">{% trans "Sin portada" %}</div>
+                {% endif %}
+            </div>
             <div class="lista-items-contenido">
                 <a href="{% url 'book-detail' l.id %}">{{ l.title }}</a>
                 <div class="subtexto">– {{ l.publisher.name }}</div>
@@ -27,7 +32,6 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No hay libros que coincidan con tu búsqueda.</p>
+    <p>{% trans "No hay libros que coincidan con tu búsqueda." %}</p>
 {% endif %}
 {% endblock %}
-

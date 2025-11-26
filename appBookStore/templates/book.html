@@ -1,29 +1,48 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="vista-detalle">
 
     <div class="detalle-imagen">
         {% if libro.cover_image %}
-            <img src="{{ libro.cover_image.url }}" alt="{{ libro.title }}">
+            <img src="{{ libro.cover_image.url }}" alt="{{ libro.title }}" class="cover-book">
+        {% else %}
+            <div class="cover-placeholder">{% trans "Sin portada disponible" %}</div>
         {% endif %}
     </div>
 
     <div class="detalle-contenido">
         
-        <h2>{{ libro.title }}</h2> <p><strong>Editorial:</strong> 
-           <a href="/publishers/{{ libro.publisher.id }}/">{{ libro.publisher.name }}</a>
+        <h2>{{ libro.title }}</h2>
+        
+        <p><strong>{% trans "Editorial" %}:</strong> 
+           <a href="{% url 'publisher-detail' libro.publisher.id %}">{{ libro.publisher.name }}</a>
         </p>
-        <p><strong>Fecha publicación:</strong> {{ libro.publication_date }}</p>
-        <p><strong>Autores:</strong>
+        
+        <p><strong>{% trans "Fecha publicación" %}:</strong> {{ libro.publication_date }}</p>
+        
+        {% if libro.summary %}
+        <p><strong>{% trans "Resumen" %}:</strong></p>
+        <p>{{ libro.summary }}</p>
+        {% endif %}
+        
+        <p><strong>{% trans "Autores" %}:</strong>
             {% if autores %}
                 {% for author in autores %}
                     <a href="{% url 'author-detail' author.id %}">{{ author.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             {% else %}
-                <span>Sin autor especificado</span>
+                <span>{% trans "Sin autor especificado" %}</span>
             {% endif %}
         </p>
-        </div>
+        
+        {% if libro.isbn %}
+        <p><strong>ISBN:</strong> {{ libro.isbn }}</p>
+        {% endif %}
+        
+        <p><strong>{% trans "Stock" %}:</strong> {{ libro.stock }}</p>
+        
+    </div>
 </div>
 {% endblock %}
