@@ -1,5 +1,4 @@
-from django.shortcuts import get_object_or_404, get_list_or_404
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Publisher, Author, Book
 from .forms import BookSearchForm, NewsletterSubscriptionForm
@@ -12,7 +11,7 @@ def index(request):
 
     for publisher in publishers:
         # Por cada editorial, busca el libro más reciente 
-        libro_reciente = publisher.book_set.order_by('-publication_date').first()
+        libro_reciente = Book.objects.filter(publisher=publisher).order_by('-publication_date').first()
         editoriales_con_libro[publisher] = libro_reciente
 
     context = {'editoriales': editoriales_con_libro}
@@ -58,7 +57,7 @@ def book_detail(request, book_id):
 # Vista para la lista de Editoriales (publishers.html)
 def publisher_list(request):
     
-   #Muestra el listado de todas las editoriales.
+    #Muestra el listado de todas las editoriales.
     
     editoriales = Publisher.objects.all().order_by('name')
     context = {'editoriales': editoriales}
@@ -71,7 +70,7 @@ def publisher_detail(request, publisher_id):
     #Muestra los detalles de una editorial específica y todos sus libros.
     
     editorial = get_object_or_404(Publisher, pk=publisher_id)
-    libros = editorial.book_set.all().order_by('title')
+    libros = Book.objects.filter(publisher=editorial).order_by('title')
     context = {'editorial': editorial, 'libros': libros}
     return render(request, 'publisher.html', context)
 
@@ -92,7 +91,7 @@ def author_detail(request, author_id):
     #Muestra los detalles de un autor específico y todos sus libros.
     
     autor = get_object_or_404(Author, pk=author_id)
-    libros = autor.book_set.all().order_by('title')
+    libros = Book.objects.filter(authors=autor).order_by('title')
     context = {'autor': autor, 'libros': libros}
     return render(request, 'author.html', context)
 

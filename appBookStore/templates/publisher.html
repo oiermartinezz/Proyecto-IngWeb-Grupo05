@@ -4,11 +4,14 @@
 <div class="vista-detalle">
 
     <div class="detalle-contenido">
-
-        <h2>Editorial: {{ editorial.name }}</h2>
+        
+        <h2>{{ editorial.name }}</h2>
+        
         <p><strong>ID:</strong> {{ editorial.id }}</p>
+        
         {% if editorial.description %}
-            <p><strong>Descripción:</strong> {{ editorial.description }}</p>
+            <p><strong>Descripción:</strong></p>
+            <p>{{ editorial.description }}</p>
         {% endif %}
         
         <h3>Libros publicados</h3>
@@ -22,5 +25,15 @@
         {% else %}
             <p>No hay libros de esta editorial.</p>
         {% endif %}
+        
+    </div>
 
-    </div> </div> {% endblock %}
+    <div class="detalle-imagen">
+        {% if editorial.logo %}
+            <img src="{{ editorial.logo.url }}" alt="Logo de {{ editorial.name }}" class="cover-book">
+        {% else %}
+            <div class="cover-placeholder">Sin logo disponible</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
