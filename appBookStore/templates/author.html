@@ -22,6 +22,14 @@
             <p>Este autor no tiene libros registrados.</p>
         {% endif %}
     </div>
+
+    <div class="detalle-imagen">
+        {% if autor.photo %}
+            <img src="{{ autor.photo.url }}" alt="Foto de {{ autor.name }}" class="cover-book">
+        {% else %}
+            <div class="cover-placeholder">Sin foto disponible</div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
 

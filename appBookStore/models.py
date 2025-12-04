@@ -15,6 +15,7 @@ class Author(models.Model):
     
     name = models.CharField(max_length=50)
     biography = models.TextField(null=True, blank=True)
+    photo = models.ImageField(upload_to='author_photos/', null=True, blank=True)
 
     def __str__(self):
         return self.name
