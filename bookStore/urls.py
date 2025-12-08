@@ -23,8 +23,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
- path('i18n/', include('django.conf.urls.i18n')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
+
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('', include('appBookStore.urls')),
+)
 
 # Servir media y estáticos FUERA de i18n_patterns para que no tengan prefijo de idioma
 if settings.DEBUG:
@@ -36,7 +41,3 @@ if settings.DEBUG:
         # En caso de que STATICFILES_DIRS no esté configurado como lista accesible
         pass
 
-urlpatterns += i18n_patterns(
-    path('', include('appBookStore.urls')),
-    path('admin/', admin.site.urls),
-)
