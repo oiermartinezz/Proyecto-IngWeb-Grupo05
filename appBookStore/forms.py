@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 import re
 from typing import Any, Optional
 from .models import Book, Publisher
+from django import forms
+from .models import NewsletterSubscription
 
 
 class BookSearchForm(forms.Form):

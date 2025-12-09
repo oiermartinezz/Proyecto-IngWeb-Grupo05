@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 from .models import Publisher, Author, Book
 from .forms import BookSearchForm, NewsletterSubscriptionForm
+from django.shortcuts import render
+from .forms import NewsletterSubscriptionForm
 
 def index(request):
     #la portada con un libro reciente de cada editorial
@@ -118,3 +120,21 @@ def newsletter_subscription(request):
     
 def agenda_contactos(request):
     return render(request, 'agenda_contactos.html')
+
+def newsletter_subscribe(request):
+    if request.method == "POST":
+        form = NewsletterSubscriptionForm(request.POST)
+        if form.is_valid():
+            subscription = form.save()
+            return render(
+                request,
+                "newsletter_success.html",
+                {
+                    "name": subscription.name,
+                    "email": subscription.email,
+                },
+            )
+    else:
+        form = NewsletterSubscriptionForm()
+
+    return render(request, "newsletter_form.html", {"form": form})
