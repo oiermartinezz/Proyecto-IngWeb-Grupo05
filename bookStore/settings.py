@@ -112,7 +112,7 @@ LANGUAGE_CODE = 'es'
 
 LANGUAGES = [
     ('es', 'Español'),
-    #('en', 'English'),
+    ('en', 'English'),
 ]
 
 LOCALE_PATHS = [

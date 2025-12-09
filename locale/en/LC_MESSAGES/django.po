@@ -1,27 +1,207 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bookStore\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-09 02:05+0100\n"
 "Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/base.html:1
-msgid "Inicio"
-msgstr "Home"
-
-#: templates/base.html:1
-msgid "Libros"
-msgstr "Books"
-
-#: templates/base.html:1
-msgid "Editoriales"
-msgstr "Publishers"
-
-#: templates/base.html:1
+# authors.html (lista autores)
+#: .\appBookStore\templates\authors.html:5
+#: .\appBookStore\templates\base.html:18 .\appBookStore\templates\book.html:30
 msgid "Autores"
 msgstr "Authors"
 
-#: templates/base.html:1
+# base.html
+#: .\appBookStore\templates\base.html:15
+msgid "Inicio"
+msgstr "Home"
+
+#: .\appBookStore\templates\base.html:16
+msgid "Libros"
+msgstr "Books"
+
+# publishers.html (lista editoriales)
+#: .\appBookStore\templates\base.html:17
+#: .\appBookStore\templates\publishers.html:5
+msgid "Editoriales"
+msgstr "Publishers"
+
+#: .\appBookStore\templates\base.html:19
 msgid "Newsletter"
 msgstr "Newsletter"
 
+#: .\appBookStore\templates\base.html:20
+msgid "Agenda"
+msgstr "Contacts"
+
+#: .\appBookStore\templates\base.html:36
+msgid "Todos los derechos reservados."
+msgstr "All rights reserved."
+
+#: .\appBookStore\templates\base.html:37
+msgid "Un proyecto de Django para clase."
+msgstr "A Django project for class."
+
+#: .\appBookStore\templates\book.html:11
+msgid "Sin portada disponible"
+msgstr ""
+
+#: .\appBookStore\templates\book.html:19
+msgid "Editorial"
+msgstr "Publisher"
+
+#: .\appBookStore\templates\book.html:23
+#, fuzzy
+#| msgid "Fecha de publicación"
+msgid "Fecha publicación"
+msgstr "Publication date"
+
+#: .\appBookStore\templates\book.html:26
+msgid "Resumen"
+msgstr ""
+
+#: .\appBookStore\templates\book.html:36
+msgid "Sin autor especificado"
+msgstr ""
+
+#: .\appBookStore\templates\book.html:44
+msgid "Stock"
+msgstr ""
+
+# books.html (lista de libros)
+#: .\appBookStore\templates\books.html:5
+msgid "Listado de libros"
+msgstr "Books list"
+
+#: .\appBookStore\templates\books.html:11
+msgid "Buscar"
+msgstr ""
+
+#: .\appBookStore\templates\books.html:12
+msgid "Limpiar filtros"
+msgstr ""
+
+#: .\appBookStore\templates\books.html:24
+msgid "Sin portada"
+msgstr ""
+
+#: .\appBookStore\templates\books.html:35
+msgid "No hay libros que coincidan con tu búsqueda."
+msgstr ""
+
+# index.html (portada)
+#: .\appBookStore\templates\index.html:6
+msgid "Bienvenido a Book Store Deusto"
+msgstr "Welcome to Book Store Deusto"
+
+#: .\appBookStore\templates\index.html:7
+msgid "Tu tienda de libros online..."
+msgstr "Your online bookstore..."
+
+#: .\appBookStore\templates\index.html:8
+msgid "El libro mas reciente de cada editorial:"
+msgstr "The most recent book from each publisher:"
+
+#: .\appBookStore\templates\newsletter_form.html:6
+msgid "Suscribirse al Newsletter"
+msgstr "Subscribe to the Newsletter"
+
+#: .\appBookStore\templates\newsletter_form.html:7
+msgid "Recibe noticias sobre nuevos libros y ofertas especiales."
+msgstr "Get news about new books and special offers."
+
+#: .\appBookStore\templates\newsletter_form.html:12
+msgid "Suscribirse"
+msgstr "Subscribe"
+
+#: .\appBookStore\templates\newsletter_success.html:6
+msgid "¡Gracias por tu suscripción!"
+msgstr "Thank you for your subscription!"
+
+#: .\appBookStore\templates\newsletter_success.html:7
+msgid "¡Hola"
+msgstr "Hello"
+
+#: .\appBookStore\templates\newsletter_success.html:8
+msgid "Te hemos suscrito exitosamente a nuestro newsletter en"
+msgstr "We have successfully subscribed you to our newsletter at"
+
+#: .\appBookStore\templates\newsletter_success.html:9
+msgid ""
+"Recibirás noticias sobre nuevos libros y ofertas especiales en tu correo."
+msgstr ""
+"You will receive news about new books and special offers in your email."
+
+#: .\appBookStore\templates\newsletter_success.html:11
+msgid "Volver al inicio"
+msgstr "Back to home"
+
+#~ msgid "Título"
+#~ msgstr "Title"
+
+#~ msgid "Autor"
+#~ msgstr "Author"
+
+#~ msgid "Precio"
+#~ msgstr "Price"
+
+#~ msgid "Detalles"
+#~ msgstr "Details"
+
+# book.html (detalle libro)
+#~ msgid "Detalles del libro"
+#~ msgstr "Book details"
+
+#~ msgid "Descripción"
+#~ msgstr "Description"
+
+#~ msgid "Volver a la lista de libros"
+#~ msgstr "Back to book list"
+
+# publisher.html (detalle editorial)
+#~ msgid "Detalles de la editorial"
+#~ msgstr "Publisher details"
+
+#~ msgid "Libros de esta editorial"
+#~ msgstr "Books from this publisher"
+
+#~ msgid "No hay libros para esta editorial."
+#~ msgstr "There are no books for this publisher."
+
+# author.html (detalle autor)
+#~ msgid "Detalles del autor"
+#~ msgstr "Author details"
+
+#~ msgid "Biografía"
+#~ msgstr "Biography"
+
+#~ msgid "Libros de este autor"
+#~ msgstr "Books by this author"
+
+#~ msgid "No hay libros para este autor."
+#~ msgstr "There are no books for this author."
+
+# newsletter_form.html
+#~ msgid "Suscríbete a nuestra newsletter"
+#~ msgstr "Subscribe to our newsletter"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Nombre"
+#~ msgstr "Name"
+
+#~ msgid "Enviar"
+#~ msgstr "Send"
+
+# newsletter_success.html
+#~ msgid "Gracias por suscribirte a la newsletter."
+#~ msgstr "Thank you for subscribing to the newsletter."
+
+#~ msgid "Hemos registrado tu correo electrónico correctamente."
+#~ msgstr "Your email has been registered successfully."
+
+#~ msgid "Volver a la página principal"
+#~ msgstr "Back to the home page"

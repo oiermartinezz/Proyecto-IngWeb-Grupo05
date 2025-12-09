@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="formulario-contenedor">
-    <h2>Suscribirse al Newsletter</h2>
-    <p>Recibe noticias sobre nuevos libros y ofertas especiales.</p>
+    <h2>{% trans "Suscribirse al Newsletter" %}</h2>
+    <p>{% trans "Recibe noticias sobre nuevos libros y ofertas especiales." %}</p>
     
     <form method="post" class="newsletter-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn-enviar">Suscribirse</button>
+        <button type="submit" class="btn-enviar">{% trans "Suscribirse" %}</button>
     </form>
 </div>
 {% endblock %}

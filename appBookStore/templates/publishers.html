@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2>Editoriales</h2>
+<h2>{% trans "Editoriales" %}</h2>
 
 {% if editoriales %}
     <ul class="lista-items">

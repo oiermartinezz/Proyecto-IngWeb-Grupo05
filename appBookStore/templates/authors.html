@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h2>Autores</h2>
+<h2>{% trans "Autores" %}</h2>
 
 {% if autores %}
 <ul class="lista-items">
