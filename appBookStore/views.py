@@ -125,7 +125,7 @@ def newsletter_subscribe(request):
     if request.method == "POST":
         form = NewsletterSubscriptionForm(request.POST)
         if form.is_valid():
-            subscription = form.save()
+            subscription = form.save() # type: ignore
             return render(
                 request,
                 "newsletter_success.html",
